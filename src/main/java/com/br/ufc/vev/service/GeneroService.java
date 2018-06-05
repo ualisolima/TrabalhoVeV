@@ -44,4 +44,14 @@ public class GeneroService {
 		return sRepository.findAll();
 	}
 
+	public List<Genero> buscarTodosGeneros() {
+		// TODO Auto-generated method stub
+		return sRepository.findAll();
+	}
+
+	public Genero buscarGenero(Integer id) {
+		// TODO Auto-generated method stub
+		return sRepository.getOne(id);
+	}
+
 }

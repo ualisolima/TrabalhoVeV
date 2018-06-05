@@ -1,4 +1,4 @@
-package br.ufc.vev.controller;
+package com.br.ufc.vev.controller;
 
 import java.util.List;
 
@@ -9,14 +9,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import br.ufc.vev.bean.Diretor;
-import br.ufc.vev.bean.Diretor;
-import br.ufc.vev.bean.Diretor;
-import br.ufc.vev.bean.Diretor;
-import br.ufc.vev.bean.Diretor;
-//import br.ufc.vev.bean.Filme;
-import br.ufc.vev.service.DiretorService;
-//import br.ufc.vev.service.FilmeService;
+import com.br.ufc.vev.model.Diretor;
+import com.br.ufc.vev.model.Diretor;
+import com.br.ufc.vev.model.Diretor;
+import com.br.ufc.vev.model.Diretor;
+import com.br.ufc.vev.model.Diretor;
+//import com.br.ufc.vev.model.Filme;
+import com.br.ufc.vev.service.DiretorService;
+//import com.br.ufc.vev.service.FilmeService;
 
 @Controller
 @RequestMapping(path = "/diretor")
@@ -53,7 +53,7 @@ public class DiretorController {
 		ModelAndView model = new ModelAndView("diretor");
 		try {
 			if (this.validaDiretor(diretor.getNome(), diretor.getSobre())) {
-				diretorService.salvarDiretor(diretor);
+				diretorService.addDiretor(diretor);
 				model.addObject("diretorRetorno", diretor);
 			}
 		} catch (Exception e) {
@@ -117,10 +117,8 @@ public class DiretorController {
 		ModelAndView model = new ModelAndView("diretor");
 
 		try {
-			Diretor diretor = new Diretor();
 			if (validaId(id) && existsByIdDiretor(id)) {
-				diretor = diretorService.buscarDiretor(id);
-				diretorService.excluirDiretor(diretor);
+				diretorService.removerDiretor(id);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -130,12 +128,9 @@ public class DiretorController {
 	}
 
 	public List<Diretor> getAllDiretores() {
-		return diretorService.getAllDiretor();
+		return diretorService.buscarTodosDiretores();
 	}
 
-	// o metodo utilizado para atualizar será o salvar, visto que o spring boot ja
-	// atualiza automaticamente o objeto passado.
-	// este método só redireciona para a digitação dos novos campos do model
 	@SuppressWarnings("finally")
 	@RequestMapping("/atualizar/{id}")
 	public ModelAndView atualizaDiretor(@PathVariable("id") Integer id) {
@@ -155,7 +150,13 @@ public class DiretorController {
 	}
 
 	public boolean existsByIdDiretor(int id) {
-		return diretorService.buscaDiretor(id);
+		try {
+			return diretorService.buscarDiretor(id) != null;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 }

@@ -1,5 +1,7 @@
 package com.br.ufc.vev.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.br.ufc.vev.model.Diretor;
@@ -43,6 +45,11 @@ public class DiretorService {
 		if (d.getSobre() == null)
 			throw new Exception("descricao não pode ser nulo");
 		return sRepository.save(d);
+	}
+
+	public List<Diretor> buscarTodosDiretores() {
+		
+		return sRepository.findAll();
 	}
 
 }

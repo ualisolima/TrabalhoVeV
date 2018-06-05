@@ -1,4 +1,4 @@
-package br.ufc.vev.controller;
+package com.br.ufc.vev.controller;
 
 import java.util.List;
 
@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 
-import br.ufc.vev.bean.Genero;
-import br.ufc.vev.service.GeneroService;
+import com.br.ufc.vev.model.Genero;
+import com.br.ufc.vev.service.GeneroService;
 
 @Controller
 @RequestMapping(path= "/genero")
@@ -50,9 +50,9 @@ public class GeneroController {
 		ModelAndView model = new ModelAndView("genero");
 		
 		try {
-			if (this.validaGenero(genero.getNome())) { // adiciona um genero novo
+			if (this.validaGenero(genero.getDescricao())) { // adiciona um genero novo
 				
-				generoService.salvarGenero(genero);
+				generoService.addGenero(genero);
 				
 				model.addObject("generoRetorno", genero);
 				
@@ -60,7 +60,7 @@ public class GeneroController {
 		} catch (Exception e) { 	// caso de erro 
 			e.printStackTrace();
 		} finally { // sempre será execultado
-			List<Genero> generos = generoService.getAllGenero();
+			List<Genero> generos = generoService.buscarTodosGeneros();
 			model.addObject("generos", generos);
 			return model;
 		}
@@ -87,7 +87,7 @@ public class GeneroController {
 		} catch (Exception e) { 	// caso de erro 
 			e.printStackTrace();
 		} finally { // sempre será execultado
-			List<Genero> generos = generoService.getAllGenero();
+			List<Genero> generos = generoService.buscarTodosGeneros();
 			model.addObject("generos", generos);
 			return model;
 		}
@@ -98,23 +98,21 @@ public class GeneroController {
 	public ModelAndView excluiGenero(@PathVariable("id") Integer id) {
 		ModelAndView model = new ModelAndView("genero");
 		try {
-			Genero genero = new Genero();
 			if (validaIdGenero(id) && existsByIdGenero(id)) { 
-				genero = generoService.buscarGenero(id);
-				generoService.excluirGenero(genero);
+				generoService.removerGenero(id);
 		 	}
 			
 		} catch (Exception e) { 	// caso de erro 
 			e.printStackTrace();
 		} finally { // sempre será execultado
-			List<Genero> generos = generoService.getAllGenero();
+			List<Genero> generos = generoService.buscarTodosGeneros();
 			model.addObject("generos", generos);
 			return model;
 		}
 	}
 
 	public List<Genero> getAllGenero() {		
-		return generoService.getAllGenero();
+		return generoService.buscarTodosGeneros();
 	}
 
 	//o metodo utilizado para atualizar será o salvar, visto que o spring boot ja atualiza automaticamente o objeto passado.
@@ -146,7 +144,7 @@ public class GeneroController {
 		} 
 		for (Genero genero : getAllGenero()) {
 			// Verifica se existe um genero de mesmo nome no banco de dados
-			if (genero.getNome().equals(nome)) {
+			if (genero.getDescricao().equals(nome)) {
 				return false;
 			}
 		}
@@ -164,7 +162,7 @@ public class GeneroController {
 	}
 	
 	public boolean existsByIdGenero(int id) {
-		return generoService.buscaGenero(id);
+		return generoService.buscarGenero(id) != null;
 	}
 	
 }

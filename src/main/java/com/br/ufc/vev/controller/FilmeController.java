@@ -1,4 +1,4 @@
-package br.ufc.vev.controller;
+package com.br.ufc.vev.controller;
 
 import java.util.List;
 
@@ -8,11 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.test.annotation.Rollback;
 
-import br.ufc.vev.bean.Ator;
-import br.ufc.vev.bean.Diretor;
-import br.ufc.vev.bean.Filme;
-import br.ufc.vev.bean.Genero;
-import br.ufc.vev.service.FilmeService;
+import com.br.ufc.vev.model.Ator;
+import com.br.ufc.vev.model.Diretor;
+import com.br.ufc.vev.model.Filme;
+import com.br.ufc.vev.model.Genero;
+import com.br.ufc.vev.service.FilmeService;
 
 @Controller
 @Transactional

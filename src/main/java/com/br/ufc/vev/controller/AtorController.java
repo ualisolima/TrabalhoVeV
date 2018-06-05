@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.br.ufc.vev.model.Ator;
-import com.br.ufc.vev.model.Ator;
 import com.br.ufc.vev.service.AtorService;
 
 
