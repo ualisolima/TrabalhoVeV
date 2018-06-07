@@ -1,4 +1,4 @@
-package br.ufc.vev.controller;
+package com.br.ufc.vev.controller;
 
 import java.util.List;
 
@@ -9,11 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import br.ufc.vev.bean.Diretor;
-import br.ufc.vev.bean.Sala;
-import br.ufc.vev.bean.Sala;
-import br.ufc.vev.bean.Sala;
-import br.ufc.vev.service.SalaService;
+import com.br.ufc.vev.model.Diretor;
+import com.br.ufc.vev.model.Sala;
+import com.br.ufc.vev.service.SalaService;
 
 @Controller
 @RequestMapping(path = "/sala")
@@ -52,7 +50,7 @@ public class SalaController {
 
 		try {
 			if (this.validaSala(sala.getNome(), sala.getCapacidade())) {
-				salaService.salvarSala(sala);
+				salaService.addSala(sala);
 				
 				model.addObject("salaRetorno", sala);
 		 	}
@@ -117,8 +115,7 @@ public class SalaController {
 		try {
 			Sala sala = new Sala();
 			if (validaIdSala(id) && existsByIdSala(id)) {
-				sala = salaService.buscarSala(id);
-				salaService.excluirSala(sala);
+				salaService.removerSala(id);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -128,7 +125,7 @@ public class SalaController {
 	}
 
 	public List<Sala> getAllSala() {		
-		return salaService.getAllSala();
+		return salaService.buscarTodasAsSalas();
 	}
 
 	// o metodo utilizado para atualizar será o salvar, visto que o spring boot ja
@@ -153,7 +150,13 @@ public class SalaController {
 		}
 
 	public boolean existsByIdSala(int id) {
-		return salaService.buscaSala(id);
+		try {
+			return salaService.buscarSala(id) != null;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
 	}
 	
 }

@@ -36,7 +36,7 @@ public class FilmeController {
 				filme.setNome(nome);
 				filme.setSinopse(sinopse);
 				filme.setDuracao(duracao);
-				return service.salvarFilme(filme);
+				return service.addFilme(filme);
 		 	}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -47,7 +47,7 @@ public class FilmeController {
 	public Filme buscaFilme(int id) {
 		try {
 			if (validaId(id) && existsByIdFilme(id)) {
-				return service.buscarFilme(id);
+				return service.buscarFilmeId(id);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -58,7 +58,7 @@ public class FilmeController {
 	public boolean excluiFilme(int id) {
 		try {
 			if (validaId(id) && existsByIdFilme(id)) {
-				service.excluirFilme(service.buscarFilme(id));
+				service.removerFilme(id);
 				return true;
 			}
 		} catch (Exception e) {
@@ -68,14 +68,14 @@ public class FilmeController {
 	}
 
 	public List<Filme> getAllFilme() {		
-		return service.getAllFilme();
+		return service.buscarTodosFilmes();
 	}
 
 	public Filme atualizaFilme(Filme filme) {
 		try {
 			if (validaFilme(filme.getNome(), filme.getSinopse(), filme.getDuracao()) &&
 					validaId(filme.getId()) && existsByIdFilme(filme.getId())) {
-				return service.atualizaFilme(filme);
+				return service.atualizarFilme(filme);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -84,18 +84,30 @@ public class FilmeController {
 	}
 	
 	public boolean vinculaAtorAoFilme(int idFilme, int idAtor) {
+		try {
 		if ((existsByIdFilme(idFilme) && atorController.existsByIdAtor(idAtor)) 
 				&& atorPertenceAoFilme(idFilme, idAtor) != true) {
-			service.vinculaAtorAoFilme(idFilme, idAtor);
-			return true;
+			
+				service.vinculaAtorAoFilme(idFilme, idAtor);
+				return true;
+		}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		return false;
 	}
 	
 	public boolean desvinculaAtorDoFilme(int idFilme, int idAtor) {
 		if (atorPertenceAoFilme(idFilme, idAtor)) {
-			service.desvinculaAtorDoFilme(idFilme, idAtor);
-			return true;
+			try {
+				service.desvinculaAtorDoFilme(idFilme, idAtor);
+				return true;
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 		}
 		return false;
 	}
@@ -103,16 +115,28 @@ public class FilmeController {
 	public boolean vinculaDiretorAoFilme(int idFilme, int idDir) {
 		if (existsByIdFilme(idFilme) && diretorController.existsByIdDiretor(idDir)
 				&& diretorPertenceAoFilme(idFilme, idDir) != true) {
-			service.vinculaDiretorAoFilme(idFilme, idDir);
-			return true;
+			try {
+				service.vinculaDiretorAoFilme(idFilme, idDir);
+				return true;
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 		}
 		return false;
 	}
 	
 	public boolean desvinculaDiretorDoFilme(int idFilme, int idDir) {
 		if (diretorPertenceAoFilme(idFilme, idDir)) {
-			service.desvinculaDiretorDoFilme(idFilme, idDir);
-			return true;
+			try {
+				service.desvinculaDiretorDoFilme(idFilme, idDir);
+				return true;
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 		}
 		return false;
 	}
@@ -167,7 +191,13 @@ public class FilmeController {
 	}
 	
 	public boolean existsByIdFilme(int id) {
-		return service.existsById(id);
+		try {
+			return service.buscarFilmeId(id) != null;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
 	}
 	
 	public boolean atorPertenceAoFilme(int idFilme, int idAtor) {

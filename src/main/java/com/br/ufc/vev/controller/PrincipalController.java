@@ -1,4 +1,4 @@
-package br.ufc.vev.controller;
+package com.br.ufc.vev.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

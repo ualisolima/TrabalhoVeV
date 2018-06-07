@@ -1,4 +1,4 @@
-package br.ufc.vev.controller;
+package com.br.ufc.vev.controller;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import br.ufc.vev.bean.Filme;
-import br.ufc.vev.bean.Sala;
-import br.ufc.vev.bean.Sessao;
-import br.ufc.vev.service.FilmeService;
-import br.ufc.vev.service.SalaService;
-import br.ufc.vev.service.SessaoService;
+import com.br.ufc.vev.model.Filme;
+import com.br.ufc.vev.model.Sala;
+import com.br.ufc.vev.model.Sessao;
+import com.br.ufc.vev.service.FilmeService;
+import com.br.ufc.vev.service.SalaService;
+import com.br.ufc.vev.service.SessaoService;
 
 @Controller
 @RequestMapping(path= "/sessao/")
