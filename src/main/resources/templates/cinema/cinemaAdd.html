@@ -14,7 +14,7 @@
             <strong>Cadastro de Cinema</strong>
         </div>
         <div class="panel-body">
-            <form class="form-horizontal" th:object="${cinema}" th:action="@{/save}" method="POST" style="margin: 10px">
+            <form class="form-horizontal" th:object="${cinema}" th:action="@{/cinema/save}" method="POST" style="margin: 10px">
                 <div class="form-group">
                     <fieldset>
                         <div class="form-group row">
@@ -26,7 +26,7 @@
                         </div>                    
                         <div class="form-group row">
                             <div class="col-md-1">
-                                <input type="text" class="form-control input-sm" id="id" th:field="*{id_cinema}" readOnly="readonly"/>
+                                <input type="text" class="form-control input-sm" id="id" th:field="*{id}" readOnly="readonly"/>
                             </div>
                          </div>
                         <div class="form-group row">                                                          
@@ -40,12 +40,18 @@
                                 <label>Endereço</label> 
                                 <input type="text" class="form-control input-sm" th:field="*{endereco}" maxlength="150" placeholder="Informe o título"/>
                             </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-4" th:classappend="${#fields.hasErrors('endereco')}? 'has-error'">
+                                <label>Cidade</label> 
+                                <input type="text" class="form-control input-sm" th:field="*{cidade}" maxlength="150" placeholder="Informe o título"/>
+                            </div>
                         </div>                        
                     </fieldset>
                 </div>
                 <div class="form-group row">
                     <button type="submit" class="btn btn-sm btn-primary">Salvar</button>
-                    <a th:href="@{/}" class="btn btn-sm btn-default">Cancelar</a>
+                    <a th:href="@{/voltar}" class="btn btn-sm btn-default">Cancelar</a>
                 </div>
             </form>
         </div>

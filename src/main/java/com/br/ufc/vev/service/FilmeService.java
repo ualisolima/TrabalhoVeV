@@ -3,14 +3,16 @@ package com.br.ufc.vev.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.br.ufc.vev.model.Ator;
 import com.br.ufc.vev.model.Diretor;
 import com.br.ufc.vev.model.Filme;
 import com.br.ufc.vev.model.Genero;
-import com.br.ufc.vev.repository.AtorRepository;
 import com.br.ufc.vev.repository.FilmeRepository;
 
+
+@Service
 public class FilmeService {
 	
 	@Autowired

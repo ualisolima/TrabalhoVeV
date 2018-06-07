@@ -27,14 +27,14 @@
                     </thead>
                     <tbody>
                         <tr th:each="cinema : ${cinemas}">
-                            <td th:text="${cinema.id_cinema}"></td>
+                           <td  th:text="${cinema.id}"></td>
                             <td th:text="${cinema.nome}"></td>
                             <td th:text="${cinema.endereco}"></td>
-                            <td th:text=" ${cinema.salas != null} ? #{cinema.salas.count} : 0"></td>
+                            <td th:text=" ${cinema.salas != null} ? #{cinema.salas.size} : 0"></td>
                             <td>
-                                <div class="btn-group pull-right">
-                                    <a class="btn btn-sm btn-primary" th:href="@{/edit/{id}(id=${cienma.id_cinema})}" >Editar</a>
-                                    <a class="delete btn btn-sm btn-danger" th:href="@{/delete/{id}(id=${cienma.id_cinema})}">Excluir</a>
+                               <div class="btn-group pull-right">
+                                    <a class="btn btn-sm btn-primary" th:href="@{'/cinema/edit/' + ${cinema.id}}" >Editar</a>
+                                    <a class="delete btn btn-sm btn-danger" th:href="@{'/cinema/delete/' + ${cinema.id}}">Excluir</a>
                                </div>
                             </td>
                         </tr>
@@ -43,7 +43,9 @@
             </div>
         </div>
         <div class="panel-footer">
-            <a class="btn btn-sm btn-success" th:href="@{/add/}" >Adicionar</a>
+            <a th:if="${admin != null}" class="btn btn-sm btn-success" th:href="@{/cinema/add/}" >Adicionar</a>
+            <a th:if="${admin != null}" class="btn btn-sm btn-success" th:href="@{/sair/}" >Sair</a>
+            <a th:if="${admin == null}" class="btn btn-sm btn-success" th:href="@{/entrar/}" >Entrar</a>
         </div>
     </div>
 </body>

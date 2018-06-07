@@ -29,13 +29,10 @@ public class FilmeController {
 	GeneroController generoController;
 	
 	
-	public Filme salvaFilme(String nome, String sinopse, int duracao) {
+	public Filme salvaFilme(Filme filme) {
 		try {
-			if (this.validaFilme(nome, sinopse, duracao)) {
-				Filme filme = new Filme();
-				filme.setNome(nome);
-				filme.setSinopse(sinopse);
-				filme.setDuracao(duracao);
+			if (this.validaFilme(filme.getNome(), filme.getSinopse(), filme.getDuracao())) {
+				
 				return service.addFilme(filme);
 		 	}
 		} catch (Exception e) {

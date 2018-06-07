@@ -19,8 +19,6 @@ public class CinemaService {
 	private SalaService salaService;
 	
 	public Cinema addCinema(Cinema c) throws Exception {
-		if (c.getId() <= 0)
-			throw new Exception("id não pode ser menor ou igual a 0");
 		if (c.getNome() == null)
 			throw new Exception("nome não pode ser nulo");
 		if (c.getEndereco() == null)
